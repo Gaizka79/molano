@@ -1,0 +1,24 @@
+{
+  "name": "molano",
+  "version": "1.0.0",
+  "description": "Molano harategia",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gaizka79/molano.git"
+  },
+  "author": "Gaizka",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gaizka79/molano/issues"
+  },
+  "homepage": "https://github.com/Gaizka79/molano#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.16"
+  }
+}
