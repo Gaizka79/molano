@@ -1,9 +1,18 @@
-import React, { Component } from "react";
+import React from "react";
+import { Routes, Route } from 'react-router-dom';
 
-class Main extends Component {
-  render() {
-    return <div>Main</div>;
-  }
+import Home from "./Home/Home";
+import Products from "./Products/Products";
+
+function Main () {
+  return (
+    <main className="main">
+      <Routes>
+        <Route element={<Home/>} path='/'/>
+        <Route element={<Products/>} path='/Products'/>
+      </Routes>
+    </main>
+  )
 }
 
 export default Main;
