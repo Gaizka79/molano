@@ -14,6 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/', (req, res) => {
+    console.log(req);
     res.json({ message: "Kaixo nire web orrialde berritik!" });
 }); 
 
