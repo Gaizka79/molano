@@ -3,7 +3,7 @@ import React from "react";
 function Footer () {
   return (
     <footer>
-      Hemen Footer joango da
+      <strong>Developed by Sagu 🐁</strong>
     </footer>
   )
 }

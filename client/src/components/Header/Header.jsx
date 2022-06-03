@@ -7,7 +7,7 @@ function Header () {
     <>
       <header className="header">
         <img src={logo} alt="logo" />
-        <h1>Carnicería Molano</h1>
+        <h1>Harategia</h1>
         <img src={logo} alt="logo" />
         
       </header>
