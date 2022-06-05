@@ -19,6 +19,7 @@ function Nav () {
           <li><Link className="menu__item" to="/">Home</Link></li>   
           <li><Link className="menu__item" to="/About">Sobre nosotros</Link></li>
           <li><Link className="menu__item" to="/Products">Productos</Link></li>
+          <li><Link className="menu__item" to="/Add">Añadir producto</Link></li>
           <li><Link className="menu__item" to="/">Donde estamos</Link></li>
           <li><a className="menu__item" href="https://www.google.com">Google</a></li>
           <li><a className="menu__item" href="https://www.google.com">Actividad</a></li>
