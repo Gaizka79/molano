@@ -5,13 +5,9 @@ const cors = require('cors');
 const morgan = require ('./middlewares/morganConfig');
 
 const routesProducts = require('./routes/routesProducts');
-/* require('mongoose');
-const db = require('./utils/mongoConfig');
-const products = require('./models/products');
-const users = require('./models/users'); */
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.LOCAL_PORT || 8080;
 
 app.use(cors());
 app.use(morgan(':date[clf] :method :referrer :host :status :param[id] - :response-time ms :body'));

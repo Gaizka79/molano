@@ -1,5 +1,3 @@
-/* import logo from './logo.svg';
-import './App.css'; */
 import './styles/styles.scss';
 import { BrowserRouter } from 'react-router-dom';
 
