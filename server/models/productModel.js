@@ -1,4 +1,3 @@
-//const { ObjectId } = require('mongodb');
 require('mongoose');
 const products = require('./products');
 
@@ -27,6 +26,7 @@ const getById = async (product) => {
 }
 
 const postProduct = async (product) => {
+    console.log("modelssssss");
     console.log(product);
     try {
         const newProduct = new products(product);
@@ -43,9 +43,7 @@ const editProduct = async (product)=>{
     console.log(product);
     try {
         const newProduct = product.body
-        const oldProduct = await products.findOne({ _id: product.id });
-        oldProduct.overwrite(newProduct);
-        await oldProduct.save();
+        await products.findOneAndUpdate({ _id: product.id }, newProduct, { new: true });
     } catch (error) {
         console.log(`Error en editProduct: ${err}`);
         throw (err);
