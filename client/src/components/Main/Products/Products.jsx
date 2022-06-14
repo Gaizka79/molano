@@ -10,7 +10,7 @@ function Products () {
 
   useEffect(() => {
     async function getProducts () {
-      const results = await axios.get(`http://localhost:5000/Products`)
+      const results = await axios.get(`http://localhost:5000/api/Products`)
       const data = await results.data;
       setProductos(data);
     }

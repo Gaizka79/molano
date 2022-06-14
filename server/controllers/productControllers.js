@@ -1,6 +1,6 @@
 require ('mongoose');
 //const db = require('../utils/mongoConfig');
-require('../utils/mongoConfig');
+require('../config/mongoConfig');
 //const products = require('../models/products');  
 const productsDB = require('../models/productModel');
 
@@ -8,7 +8,8 @@ const getProducts = async (req, res) => {
     console.log("getProductsen gaude");
     try{
         const allProducts = await productsDB.getAllProducts();
-        console.log(allProducts);
+        //console.log(allProducts);
+        console.log("pinta todos los productos");
         res.status(200).json(allProducts);
         //res.status(200).send(allProducts);
     }
@@ -70,12 +71,22 @@ const deleteProducts = async (req, res) => {
 //    res.send({ msg: "delete"});
 };
 
+const isAuthenticated =  (req, res, next) => {
+    console.log("en ISAUTHENTICATEDDDDDD");
+    console.log(req);
+    return next();
+    console.log(req);
+    if (req.isAuthenticated()) return next();
+    res.redirect('/api');
+};
+
 const productControllers = {
     getProducts,
     getProductById,
     postProducts,
     putProducts,
-    deleteProducts
+    deleteProducts,
+    isAuthenticated
 };
 
 module.exports = productControllers;

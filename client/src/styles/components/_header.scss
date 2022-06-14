@@ -16,6 +16,10 @@ header {
     & > h1 {
         color: white;
         text-align: center;
-        
+    }
+    .login, .register, .getuser {
+        display: flex;
+        flex-direction: column;
     }
 }
+

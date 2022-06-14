@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    name: {
+    username: {
         type: String,
         trim: true
     },
-    email: {
+    nombre: {
         type: String,
         required: true,
         trim: true
@@ -15,16 +15,11 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    direction: {
-        type: String
-    },
-    telephone: {
+    role: {
         type: String,
+        default: "member",
+        require: true,
         trim: true
-    },
-    admin: {
-        type: Boolean,
-        default: false
     }
 });
 
