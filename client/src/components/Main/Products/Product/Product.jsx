@@ -1,4 +1,5 @@
 import React from "react";
+import noImage from '../../../../../src/assets/no_image.png';
 
 function Product (props) {
 
@@ -11,14 +12,14 @@ function Product (props) {
       <h4>Familia: {family}</h4>
       <p><b>Descripción:</b> {description}</p>
       <p><b>Precio: </b> {price} €/kg.</p>
-      <img src={foto} alt="argazkia" />
+      {foto ? <img src={foto} alt="argazkia" /> :
+        <img src={noImage} alt="argazkia" />}
       <div className="product_buttons">
         <button className="putBt"><b>Editar</b></button>
         <button className="deleteBt"><b>Borrar</b></button>
       </div>
     </article>
   )
-  
 }
 
 export default Product;
