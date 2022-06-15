@@ -1,11 +1,12 @@
 require('dotenv').config();
 const express = require("express");
 require ('body-parser');
-const passport = require('passport');
-require('./utils/auth')(passport);
 
 const cors = require('cors');
 const morgan = require ('./middlewares/morganConfig');
+
+const passport = require('passport');
+require('./utils/auth')(passport);
 
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
