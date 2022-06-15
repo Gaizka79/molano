@@ -14,7 +14,7 @@ function Add () {
     body.price = price.value;
     body.foto = foto.value;
 
-    await axios.post(`http://localhost:5000/Products/create/`, body)
+    await axios.post(`http://localhost:5000/api/Products/create/`, body)
       .then(response => console.log(response))
       .catch(error => console.log(error));
 

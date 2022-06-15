@@ -1,6 +1,6 @@
 //const { ObjectId } = require('mongodb');
 require('mongoose');
-const products = require('./products');
+const products = require('../models/products');
 
 const getAllProducts = async () => {
     try{
