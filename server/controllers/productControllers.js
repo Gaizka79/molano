@@ -2,7 +2,7 @@ require ('mongoose');
 //const db = require('../utils/mongoConfig');
 require('../utils/mongoConfig');
 //const products = require('../models/products');  
-const productsDB = require('../models/productModel');
+const productsDB = require('../services/productModel');
 
 const getProducts = async (req, res) => {
     console.log("getProductsen gaude");
