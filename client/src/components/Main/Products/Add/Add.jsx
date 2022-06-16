@@ -19,6 +19,8 @@ function Add () {
     body.description = description.value;
     body.price = price.value;
     body.foto = await uploadFoto(foto.files[0]);
+    console.log(body);
+    
 
     await axios.post(`http://localhost:5000/api/Products/create/`, body)
       .then(response => console.log(response))

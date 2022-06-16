@@ -38,6 +38,18 @@ function Header () {
       url: "http://localhost:5000/api/Login"
     }).then((res) => console.log(res));
   };
+
+  const logOut = () => {
+    axios.get("http://localhost:5000/api/Logout")
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
+  };
+
+  const isLogged = () => {
+    axios.get("http://localhost:5000/api/Islogged")
+      .then((res) => console.log(res))
+      .catch((err) => console.log(`No estás logeado y tenemos el error: ${err}`));
+  }
   
   const getUser = () => {
     axios({
@@ -78,6 +90,14 @@ function Header () {
               data ? <h1>Welcome Back {data.username}</h1> : 
                 null 
             }
+          </div>
+          <div className="logout">
+            <h1>Logout</h1>
+            <button onClick={logOut}>Logout</button>
+          </div>
+          <div className="isLogged">
+            <h1>Estoy logeado??</h1>
+            <button onClick={isLogged}>Logeado??</button>
           </div>
         </div>
       </header>
