@@ -44,20 +44,42 @@ const login = (req, res, next) => {
                     if (error) return next(error);
     
                     const body = { _id: user._id, email: user.email };
-                    const token = jwt.sign({ user: body }, 'TOP_SECRET');
+                    const token = jwt.sign({ user: body }, 'TOP_SECRET', { expiresIn: '5m' });
     
-                    //return res.json({ token });
                     console.log(token);
-                    next();
+                    console.log(req.headers);
+                    console.log(req.isAuthenticated());
+                    console.log(req.user);
+                    return res.json({ token });
                 }
             );
         }
     })(req, res, next);
 };
 
+const isLogged = (req, res, next) => {
+    if (req.isAuthenticated()) return next();
+};
+
+const logOut = (req, res) => {
+    console.log(req.isAuthenticated());
+    console.log(req.user);
+    (req.isAuthenticated()) ? req.logOut() :
+        console.log("No Authenticated users");
+};
+
+const amILogged = (req, res) => {
+    (req.isAuthenticated()) ? res.send(req.isAuthenticated()) :
+        res.send({ mensaje: "NO estas logeado"});
+    
+}
+
 const userControllers = {
     signUp,
-    login
+    login,
+    isLogged,
+    logOut,
+    amILogged
 };
 
 module.exports = userControllers;
