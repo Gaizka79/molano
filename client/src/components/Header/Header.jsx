@@ -19,7 +19,7 @@ function Header () {
         password: registerPassword
       },
       withCredentials: true,
-      url: "http://localhost:5000/api/Signup"
+      url: "http://localhost:5000/api/users/Signup"
     }).then((res) => console.log(res));
   };
 
@@ -35,28 +35,37 @@ function Header () {
         password: loginPassword
       },
       withCredentials: true,
-      url: "http://localhost:5000/api/Login"
+      url: "http://localhost:5000/api/users/Login"
     }).then((res) => console.log(res));
   };
 
-  const logOut = () => {
-    axios.get("http://localhost:5000/api/Logout")
+  const logOut = async () => {
+    await axios({
+      method: "GET",
+      withCredentials: true,
+      url: "http://localhost:5000/api/users/Logout"
+    })
     .then((res) => console.log(res))
     .catch((err) => console.log(err));
   };
 
-  const isLogged = () => {
-    axios.get("http://localhost:5000/api/Islogged")
-      .then((res) => console.log(res))
-      .catch((err) => console.log(`No estás logeado y tenemos el error: ${err}`));
-  }
-  
-  const getUser = () => {
-    axios({
+  const isLogged = async () => {
+    await axios({
       method: "GET",
       withCredentials: true,
-      url: "http://localhost:5000/api/user"
-    }).then((res) => {
+      url: "http://localhost:5000/api/users/Islogged"
+    })
+    .then((res) => console.log(res))
+    .catch((err) => console.log(`No estás logeado y tenemos el error: ${err}`));
+  }
+  
+  const getUser = async () => {
+    await axios({
+      method: "GET",
+      withCredentials: true,
+      url: "http://localhost:5000/api/users/user"
+    })
+    .then((res) => {
       setData(res.data);
       console.log(res.data);
     });

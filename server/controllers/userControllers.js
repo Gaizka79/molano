@@ -69,6 +69,9 @@ const logOut = (req, res) => {
 };
 
 const amILogged = (req, res) => {
+    console.log("AUTENTICADO????????????");
+    console.log(req.isAuthenticated());
+    console.log(req.headers);
     (req.isAuthenticated()) ? res.send(req.isAuthenticated()) :
         res.send({ mensaje: "NO estas logeado"});
     
