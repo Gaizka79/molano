@@ -1,7 +1,8 @@
 require ('mongoose');
-const db = require('../utils/mongoConfig');
+//const db = require('../utils/mongoConfig');
+require('../utils/mongoConfig');
 //const products = require('../models/products');  
-const productsDB = require('../models/productModel');
+const productsDB = require('../services/productModel');
 
 const getProducts = async (req, res) => {
     console.log("getProductsen gaude");
@@ -34,13 +35,16 @@ const getProductById = async (req, res) => {
 const postProducts = async (req, res) => {
     console.log("postProducts BODY");
     console.log(req.body);
+    console.log(req.body.name);
+    console.table(req.body);
+    console.log(req.body.foto);
     try {
         await productsDB.postProduct(req.body);
         res.status(200).send({ msg: "Product created!" });
     }
     catch(err) {
-        console.log(`Error in postProducts: ${err}`);
-        throw(err);
+        res.status(500).send({ msg: `Error creando: ${err}`});
+        //throw(err);
     }
 };
 
