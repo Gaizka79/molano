@@ -9,6 +9,8 @@ function Header () {
   const [ loginUsername, setLoginUsername ] = useState("");
   const [ loginPassword, setloginPassword ] = useState("");
   const [ data, setData ] = useState(null);
+  const [ loginStatus, setLoginStatus ] = useState(false);
+  const [ token, setToken ] = useState(null);
 
   const register = async () => {
     console.log(registerPassword + registerUsername);
@@ -36,7 +38,16 @@ function Header () {
       },
       withCredentials: true,
       url: "http://localhost:5000/api/users/Login"
-    }).then((res) => console.log(res));
+    }).then((res) => {
+      if (!res.data.auth) {
+        setLoginStatus(false);
+      } else {
+        setLoginStatus(true);
+        localStorage.setItem("token", res.data.token);
+        console.log(res.data);
+      }
+    })
+      .catch(err => console.log(err.response.data));
   };
 
   const logOut = async () => {
@@ -50,10 +61,14 @@ function Header () {
   };
 
   const isLogged = async () => {
+
     await axios({
       method: "GET",
       withCredentials: true,
-      url: "http://localhost:5000/api/users/Islogged"
+      headers: {
+        'myToken': localStorage.getItem("token")
+      },
+      url: "http://localhost:5000/api/users/isUserAuth"
     })
     .then((res) => console.log(res))
     .catch((err) => console.log(`No estás logeado y tenemos el error: ${err}`));
@@ -108,6 +123,10 @@ function Header () {
             <h1>Estoy logeado??</h1>
             <button onClick={isLogged}>Logeado??</button>
           </div>
+        </div>
+        <div className="loginStatus">
+            {loginStatus && <button> Check if Authenticated</button>}
+
         </div>
       </header>
       <Nav/>

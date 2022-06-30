@@ -1,11 +1,58 @@
 require ('mongoose');
 const passport = require('passport');
-require('../utils/auth')(passport);
+//require('../utils/auth')(passport);
+require('../config/passport');
 const bcrypt = require('bcryptjs'),
     users = require('../models/users'),
     jwt = require('jsonwebtoken');
+    //User = require('../models/users');
 
-const signUp = async (req, res, next) => {
+const signUp = ((req, res, next) => {
+    console.log("En el signup");
+    passport.authenticate('register', (err, user, info) => {
+        if (err) return console.log(error);
+        if (info) return res.json(info);
+        req.login(user, err => {
+            const data = {
+                username: req.body.username,
+                email: 'newfake@email'
+            };
+        users.findOneAndUpdate({ username: data.username }, data)
+            .then(console.log("usuario creado otravez con exito!"))
+            //.then(res.status(200).send({ message: 'user rerecreated!'}));
+        })
+    })(req, res, next);
+});
+
+const login = async (req, res, next) => {
+    console.log("en la nueva mierda");
+    passport.authenticate('login', (err, user, info) => {
+        console.log("de vuelta en el login");
+        console.log(err);
+        console.log(user);
+        console.log(info);
+        info? console.log("info is true") : console.log("info is false");
+        if (err) return console.log(err);
+        if (info) return res.status(401).send(info);
+        console.log(user);
+        req.logIn(user, err => {
+            users.findOne({ username: user.username }, (err, user) => {
+                if (err) return res.send(err);
+                req.user = user;
+                const token = jwt.sign({ id: user.username }, 'TOP_SECRET', {expiresIn: 10});
+                res.status(200).send({
+                    auth: true,
+                    token: token,
+                    message: "user found & logged in OK!"
+                });
+
+                next();
+            })
+        })
+    })(req, res, next);
+}
+
+const signUp2 = async (req, res, next) => {
     try{
         users.findOne({username: req.body.username}, async (err, doc) => {
             if (err) res.status(500).send(err);
@@ -29,10 +76,34 @@ const signUp = async (req, res, next) => {
     }
 };
 
-const login = (req, res, next) => {
+const login2 = async (req, res, next) => {
     console.log("loginnnnnnn");
-    console.log((req.body));
-    passport.authenticate('local', async (err, user, info) => {
+    let  {username, password } = req.body;
+    console.log(username + " " + password); 
+
+    users.findOne({ username: username }, (err, user) => {
+
+        if (err) throw err;
+        if (!user) return res.json({ msg: `${username} ez dugu aurkitu!`});
+
+        bcrypt.compare(password, user.password, (err, result) => {
+            if (err) throw err;
+            if (!result) return res.send({ msg: "password not validdddd" });
+
+            console.log("login ok");
+            const token = jwt.sign({user: user.username, role: user.role}, 'TOP_SECRET', { expiresIn: 10 } )
+            
+            req.session.user = user;
+            console.log(req.session.user);
+
+            res.status(200).json({ auth: true, token: token, user: user });
+
+                
+                
+            
+        });
+    });
+    /* passport.authenticate('local', async (err, user, info) => {
         if (err) throw err;
         if (!user) res.send("No User exists");
         else {
@@ -54,7 +125,7 @@ const login = (req, res, next) => {
                 }
             );
         }
-    })(req, res, next);
+    })(req, res, next); */
 };
 
 const isLogged = (req, res, next) => {
