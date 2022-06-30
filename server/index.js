@@ -6,16 +6,17 @@ const cors = require('cors');
 const morgan = require ('./middlewares/morganConfig');
 
 const passport = require('passport');
-require('./utils/auth')(passport);
+//require('./utils/auth')(passport);
+require('./config/passport');
 
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-
 
 const routesProducts = require('./routes/routesProducts');
 const routesUsers = require('./routes/routesUsers');
 
 const app = express();
+app.disable('x-powered-by');
 const PORT = process.env.LOCAL_PORT || 8080;
 
 //app.use(cors());
@@ -24,14 +25,14 @@ app.use(cors({
   credentials: true
 }));
 
-app.use(session({
+/* app.use(session({
   secret: "secretcode",
   resave: true,
   saveUninitialized: true
-}));
+})); */
 app.use(cookieParser("secretcode"));
 app.use(passport.initialize());
-app.use(passport.session()); 
+//app.use(passport.session()); 
 
 app.use(morgan(':date[clf] :method :referrer :host :status :param[id] - :response-time ms :body'));
 
