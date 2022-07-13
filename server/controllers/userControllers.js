@@ -2,6 +2,7 @@ require ('mongoose');
 const passport = require('passport');
 //require('../utils/auth')(passport);
 require('../config/passport');
+const { verifyJWT } = require('../utils/jwt');
 const bcrypt = require('bcryptjs'),
     users = require('../models/users'),
     jwt = require('jsonwebtoken');
@@ -39,9 +40,11 @@ const login = async (req, res, next) => {
             users.findOne({ username: user.username }, (err, user) => {
                 if (err) return res.send(err);
                 req.user = user;
-                const token = jwt.sign({ id: user.username }, 'TOP_SECRET', {expiresIn: 10});
+                const token = jwt.sign({ username: user.username, role: user.role }, 'TOP_SECRET', {expiresIn: 60});
                 res.status(200).send({
                     auth: true,
+                    user: user,
+                    //token: "Bearer " + token,
                     token: token,
                     message: "user found & logged in OK!"
                 });
@@ -51,6 +54,13 @@ const login = async (req, res, next) => {
         })
     })(req, res, next);
 }
+
+const restore = async (req, res) => {
+    console.log("en el nodemailer");
+    console.log(req.query);
+    res.send(req.query);
+
+};
 
 const signUp2 = async (req, res, next) => {
     try{
@@ -143,14 +153,15 @@ const amILogged = (req, res) => {
     console.log("AUTENTICADO????????????");
     console.log(req.isAuthenticated());
     console.log(req.headers);
-    (req.isAuthenticated()) ? res.send(req.isAuthenticated()) :
-        res.send({ mensaje: "NO estas logeado"});
-    
+    /* (req.isAuthenticated()) ? res.send(req.isAuthenticated()) :
+        res.send({ mensaje: "NO estas logeado"}); */
+    verifyJWT(req, res);
 }
 
 const userControllers = {
     signUp,
     login,
+    restore,
     isLogged,
     logOut,
     amILogged

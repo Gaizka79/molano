@@ -54,6 +54,7 @@ passport.use('login', new localStrategy(
         console.log(username);
         try {
             users.findOne({ username: username }, (err, user) => {
+                console.log("user del findone: ");
                 console.log(user);
 
                 if (err) done(err);
@@ -65,7 +66,6 @@ passport.use('login', new localStrategy(
                     if (!result) return done(null, false, { msg: "password not validdddd" });
                     
                     console.log("login ok");
-                    console.log(user);
                     return done(null, user);   
                 });
             });
@@ -76,12 +76,13 @@ passport.use('login', new localStrategy(
 ));
 
 const opts = {
-    //jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme('JWT'),
-    jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-    secretOrKey: 'TOP_SECRET',
+    jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme('JWT'),
+    //jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+    secretOrKey: 'TOP_SECRET'
 };
 
 passport.use('jwt', new JWTstrategy(opts, (jwt_payload, done) => {
+    console.log("autenticando el token en passport.js");
     try {
         users.findOne( {username: jwt_payload.username})
         .then (user => {
