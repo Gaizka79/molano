@@ -4,15 +4,15 @@ import logo from '../../assets/logo.png';
 import axios from "axios";
 
 function Header () {
-  const [ registerUsername, setRegisterUsername ] = useState("");
+/*   const [ registerUsername, setRegisterUsername ] = useState("");
   const [ registerPassword, setRegisterPassword ] = useState("");
   const [ loginUsername, setLoginUsername ] = useState("");
   const [ loginPassword, setloginPassword ] = useState("");
   const [ data, setData ] = useState(null);
   const [ loginStatus, setLoginStatus ] = useState(false);
-  const [ token, setToken ] = useState(null);
+  const [ token, setToken ] = useState(null); */
 
-  const register = async () => {
+  /* const register = async () => {
     console.log(registerPassword + registerUsername);
     await axios({
       method: "POST",
@@ -84,7 +84,7 @@ function Header () {
       setData(res.data);
       console.log(res.data);
     });
-  };
+  }; */
 
   return (
     <>
@@ -93,7 +93,7 @@ function Header () {
         <h1>Harategia</h1>
         <img src={logo} alt="logo" />
 
-        <div className="loginform">
+        {/* <div className="loginform">
           <div className="register">
             <h1>Register</h1>
             <input placeholder="username" onChange={e => setRegisterUsername(e.target.value)} />
@@ -127,7 +127,7 @@ function Header () {
         <div className="loginStatus">
             {loginStatus && <button> Check if Authenticated</button>}
 
-        </div>
+        </div> */}
       </header>
       <Nav/>
     </>

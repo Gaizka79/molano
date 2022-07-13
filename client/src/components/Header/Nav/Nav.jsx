@@ -17,6 +17,7 @@ function Nav () {
         </label>
         <ul className="menu__box">         
           <li><Link className="menu__item" to="/">Home</Link></li>   
+          <li><Link className="menu__item" to="/Login">Login</Link></li>
           <li><Link className="menu__item" to="/About">Sobre nosotros</Link></li>
           <li><Link className="menu__item" to="/Products">Productos</Link></li>
           <li><Link className="menu__item" to="/Add">Añadir producto</Link></li>
